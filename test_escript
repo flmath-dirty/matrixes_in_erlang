@@ -1,0 +1,5 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+%%! -smp enable -sname test_escript -pa ebin -I include
+main(_) ->
+        eunit:test({dir, "ebin/"}).   

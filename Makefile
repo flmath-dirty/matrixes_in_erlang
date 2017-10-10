@@ -23,6 +23,4 @@ all	: compile run
 test	: compile_test eunit
 
 eunit    : compile_test
-	$(ERL) -pa ebin  \
-	-s eunit test matrix_tests
-
+	./test_escript

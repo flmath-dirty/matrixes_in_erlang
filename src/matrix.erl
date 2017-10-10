@@ -8,6 +8,14 @@
 %%%-------------------------------------------------------------------
 -module(matrix).
 
-load([],[],[])->
-    [].
+-export([
+         load/1,
+         load/2
+        ]).
+
+load(List)->
+    load(List, list_of_lists).
+
+load(List, list_of_lists)->
+    List.
 
