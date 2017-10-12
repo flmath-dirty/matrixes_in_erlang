@@ -14,19 +14,16 @@
 rows_sums(Matrix) ->
     [lists:sum(Row)|| Row <- Matrix].
 
-cols_sums([])->[];
-cols_sums(Matrix)->cols_sums(Matrix,[]).
-
-cols_sums([[]|_], Acc)->
-     lists:reverse(Acc);
-cols_sums(Matrix, Acc) ->
-    {Heads, Tails} = lists:unzip([{Head,Tail} || [Head| Tail]<- Matrix]),   
-    cols_sums(Tails, [lists:sum(Heads)| Acc]).
+cols_sums([]) -> [];
+cols_sums([[]|_]) -> [];
+cols_sums(Matrix) ->
+    {Heads, Tails} = lists:unzip([{Head,Tail} || [Head| Tail]<- Matrix]),
+    [lists:sum(Heads)| cols_sums(Tails)].
 
 get_value(X, Y, Matrix)->
     Row = lists:nth(Y, Matrix),
     lists:nth(X, Row).
-    
+
 set_value(X, Y, NewValue, Matrix)->
     {PrecedingList,[Row | TailList]} = lists:split(Y-1, Matrix),
     {PrecedingElements,[_OldValue | TailElements]} = lists:split(X-1,Row),
