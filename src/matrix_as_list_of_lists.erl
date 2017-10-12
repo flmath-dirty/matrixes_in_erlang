@@ -29,7 +29,7 @@ get_value(X, Y, Matrix)->
     
 set_value(X, Y, NewValue, Matrix)->
     {PrecedingList,[Row | TailList]} = lists:split(Y-1, Matrix),
-    {PrecedingElements,[OldValue | TailElements]} = lists:split(X-1,Row),
+    {PrecedingElements,[_OldValue | TailElements]} = lists:split(X-1,Row),
     lists:append([PrecedingList,
                  [lists:append([PrecedingElements,[NewValue], TailElements])],
                  TailList]).
