@@ -9,7 +9,13 @@
 -module(matrix_as_list_of_lists).
 
 -export([rows_sums/1, cols_sums/1,
-         get_value/3,set_value/4]).
+         get_value/3,set_value/4, 
+         load/1]).
+
+load({Width,Height,Matrix})->
+    [[element(X+(Y-1)*Width, Matrix) 
+      || X<-lists:seq(1,Width)
+     ]|| Y<-lists:seq(1,Height)].
 
 rows_sums(Matrix) ->
     [lists:sum(Row)|| Row <- Matrix].

@@ -9,10 +9,11 @@
 -module(matrix_as_map).
 
 -export([rows_sums/1, cols_sums/1,
-         get_value/3,set_value/4]).
+         get_value/3,set_value/4,
+         load/1]).
 
 load({Width,Height,Matrix})->
-    PropList = [ {{X, Y}, element(X+(Y-1)*Width, Matrix)} || Y<-lists:seq(1,Height),X<-lists:seq(1,Width)],
+    PropList = [{{X, Y}, element(X+(Y-1)*Width, Matrix)} || Y<-lists:seq(1,Height),X<-lists:seq(1,Width)],
     maps:from_list(lists:append([{height,Height},{width,Width}], PropList)).
 
 rows_sums({0,0,_})-> [];
@@ -40,7 +41,6 @@ cols_sums(Map, ColIndex, Width,Height)->
     Colsubmap = maps:with(ColIndexes, Map),
     TheSum = lists:sum(maps:values(Colsubmap)),
     [TheSum | cols_sums(Map, ColIndex+1, Width, Height)].
-
 
 get_value(TheX, TheY, Map)->
     maps:get({TheX,TheY},Map).

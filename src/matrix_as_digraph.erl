@@ -8,8 +8,9 @@
 %%%-------------------------------------------------------------------
 -module(matrix_as_digraph).
 
--export([rows_sums/1, %cols_sums/1,
-         get_value/3,set_value/4]).
+-export([rows_sums/1, cols_sums/1,
+         get_value/3,set_value/4,
+         load/1]).
 
 load({Width,Height,Matrix})->
     MatrixDigraph = digraph:new(),
@@ -20,12 +21,12 @@ load({Width,Height,Matrix})->
     [digraph:add_vertex(MatrixDigraph,{row,No})|| No<-lists:seq(1,Height)],
     
     [digraph:add_vertex(MatrixDigraph, {X,Y}, element(X+(Y-1)*Width,Matrix)) 
-     || Y<-lists:seq(1,Height),X<-lists:seq(1,Width)],
+     || Y<-lists:seq(1,Height), X<-lists:seq(1,Width)],
     
     [digraph:add_edge(MatrixDigraph, {X,Y}, {row,Y}) 
-     || Y<-lists:seq(1,Height),X<-lists:seq(1,Width)],
+     || Y<-lists:seq(1,Height), X<-lists:seq(1,Width)],
     [digraph:add_edge(MatrixDigraph, {X,Y}, {col,X}) 
-     || Y<-lists:seq(1,Height),X<-lists:seq(1,Width)],
+     || Y<-lists:seq(1,Height), X<-lists:seq(1,Width)],
     MatrixDigraph.
 
 rows_sums(Digraph)->

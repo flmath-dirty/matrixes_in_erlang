@@ -10,6 +10,16 @@
 
 -include_lib("eunit/include/eunit.hrl").
 
+rows_sums_empty_load_test()->
+    AssumedResult = [],
+    ActualResult = matrix_as_list_of_lists:load({0,0,{}}),
+    ?assertEqual(AssumedResult, ActualResult).
+
+rows_sums_3_by_4_load_test()->
+    AssumedResult = [[2,3,11],[4,5,12],[6,7,12],[13,14,15]],
+    ActualResult = matrix_as_list_of_lists:load({3,4,{2,3,11,4,5,12,6,7,12,13,14,15}}),
+    ?assertEqual(AssumedResult, ActualResult).
+
 rows_sums_empty_test()->
     AssumedResult = [],
     ActualResult = matrix_as_list_of_lists:rows_sums([]),

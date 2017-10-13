@@ -9,7 +9,8 @@
 -module(matrix_as_array).
 
 -export([rows_sums/1, cols_sums/1,
-         get_value/3,set_value/4]).
+         get_value/3,set_value/4,
+         load/1]).
 
 load({Width,Height,Matrix})->
    {Width,Height,array:from_list(tuple_to_list(Matrix))}.

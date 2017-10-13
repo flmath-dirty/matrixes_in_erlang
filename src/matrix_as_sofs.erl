@@ -9,7 +9,8 @@
 -module(matrix_as_sofs).
 
 -export([rows_sums/1, cols_sums/1,
-         get_value/3,set_value/4]).
+         get_value/3,set_value/4,
+         load/1]).
 
 load({Width,Height,Matrix})->
     RelAsList = [ {X, Y, element(X+(Y-1)*Width, Matrix)} || Y<-lists:seq(1,Height),X<-lists:seq(1,Width)],
