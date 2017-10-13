@@ -12,9 +12,8 @@
          get_value/3,set_value/4]).
 
 load({Width,Height,Matrix})->
-    RelAsList = [{X,Y,element(X+(Y-1)*Width,Matrix)} || Y<-lists:seq(1,Height),X<-lists:seq(1,Width)],
+    RelAsList = [ {X, Y, element(X+(Y-1)*Width, Matrix)} || Y<-lists:seq(1,Height),X<-lists:seq(1,Width)],
     sofs:relation(RelAsList).
-
 
 rows_sums({_,[],_}) ->
     [];
@@ -29,18 +28,18 @@ cols_sums(Relation)->
     [sum_output_values(EquivalenceClass) || EquivalenceClass <- Partition].
 
 sum_output_values(Part)->
-     lists:sum([Output|| {_X,_Y,Output} <- Part]).
+     lists:sum([Output|| {_X, _Y, Output} <- Part]).
 
 
 get_value(TheX, TheY, Relation)->
-    [{TheX,TheY,Value}] = 
+    [{TheX, TheY, Value}] = 
         sofs:to_external(
           sofs:specification(
             {external, fun({X, Y, _Output})-> (TheX==X) and (TheY==Y) end}, Relation)),
     Value.
-    
+
 set_value(TheX, TheY, NewValue, Relation)->
     RemovedXY = sofs:specification(
                   {external, fun({X, Y, _Output})-> (TheX=/=X) or (TheY=/=Y) end}, Relation),
     NewValueRel = sofs:relation([{TheX, TheY, NewValue}]),
-    sofs:union(RemovedXY,NewValueRel).
+    sofs:union(RemovedXY, NewValueRel).
