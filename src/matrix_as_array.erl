@@ -23,7 +23,7 @@ rows_sums({_Width,Height,_Matrix},RowNo,_Acc) when Height==RowNo->
 rows_sums({Width,Height,Matrix},RowNo,Acc) ->
     RowSum = lists:sum(
                [array:get(Index, Matrix)|| Index <- lists:seq(RowNo*Width,(RowNo+1)*Width-1)]),
-    [RowSum|rows_sums({Width,Height,Matrix},RowNo+1,Acc)].
+    [RowSum | rows_sums({Width,Height,Matrix},RowNo+1,Acc)].
 
 cols_sums({_Width,_Height,{}}) ->[];
 cols_sums({Width,Height,Matrix}) ->
