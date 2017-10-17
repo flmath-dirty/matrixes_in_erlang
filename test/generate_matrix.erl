@@ -8,6 +8,8 @@
 %%%-------------------------------------------------------------------
 -module(generate_matrix).
 
+-export([arithmetic_sum/2]).
+
 -include_lib("eunit/include/eunit.hrl").
 
 arithmetic_sum(0,0)->
@@ -18,12 +20,12 @@ arithmetic_sum(Width,Height)->
     RowsSums = lists:seq(SumFromOneToWidth,
                          SumFromOneToWidth + Width * Width * (Height - 1),
                          Width * Width),
-    
+
     SumFromOneToHeight = Height +  Width * ((Height * (Height - 1)) div 2),
     ColsSums = lists:seq(SumFromOneToHeight,
                          SumFromOneToHeight + (Width-1) * Height,
                          Height),
-    
+
     {{Width, Height, Matrix}, ColsSums, RowsSums}.  
 
 empty_load_test()->

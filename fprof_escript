@@ -1,0 +1,30 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+%%! -smp enable -sname fprof_escript -pa ebin -I include
+
+%% ref http://erlang.org/doc/man/fprof.html#analyse-0
+
+main([MatrixForm, TestSpec]) ->
+    try    
+        run(list_to_atom(MatrixForm), list_to_atom(TestSpec))
+    catch
+        _:_ ->
+            usage()
+    end;   
+main(_) ->
+    usage().
+
+run(matrix_as_array, create)->
+    {Matrix,_ColsSums,_RowsSums}  = matrix_example(),
+    TestedMatrixRepresentation = matrix_as_array:load(Matrix),
+    
+    fprof:apply(matrix_as_array, rows_sums,[TestedMatrixRepresentation]),
+    fprof:profile(),
+    fprof:analyse().
+    
+
+matrix_example()->
+    generate_matrix:arithmetic_sum(999,99).
+
+usage() ->
+    io:format("usage: ./fprof_escript MatrixForm TestSpec\n").
