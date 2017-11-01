@@ -3,28 +3,47 @@
 %%! -smp enable -sname fprof_escript -pa ebin -I include
 
 %% ref http://erlang.org/doc/man/fprof.html#analyse-0
+-define(BUFFER_FILE,"fprof.analysis").
 
 main([MatrixForm, TestSpec]) ->
-    try    
+    try
         run(list_to_atom(MatrixForm), list_to_atom(TestSpec))
     catch
-        _:_ ->
+        Mod:Error ->
+            io:format("~p~n",[[Mod,Error]]),
             usage()
-    end;   
+    end;
 main(_) ->
     usage().
 
-run(matrix_as_array, create)->
-    {Matrix,_ColsSums,_RowsSums}  = matrix_example(),
+run(MatrixForm , one_rows_sums)->
+    {Matrix,_ColsSums,_RowsSums}  =  generate_matrix:arithmetic_sum(99,99),
     TestedMatrixRepresentation = matrix_as_array:load(Matrix),
-    
-    fprof:apply(matrix_as_array, rows_sums,[TestedMatrixRepresentation]),
-    fprof:profile(),
-    fprof:analyse().
-    
+    fprof:apply(MatrixForm, rows_sums,[TestedMatrixRepresentation]),
+    get_statistics().  
 
-matrix_example()->
-    generate_matrix:arithmetic_sum(999,99).
+get_statistics()->
+    process_fprof_logs(),
+    TotalsResult = get_totals_line(),
+    [FunctionCalls,ExecutionTime] =  get_total_calls_no_and_exec_time(TotalsResult),
+    io:format("~p~n",[[FunctionCalls,ExecutionTime]]),
+    [FunctionCalls,ExecutionTime].
+
+process_fprof_logs()->
+    fprof:profile(),
+    fprof:analyse([{dest, ?BUFFER_FILE}]).
+get_totals_line()->
+    {ok,AnalysisResult} = file:read_file(?BUFFER_FILE),
+    {match, TotalsResults} = re:run(binary_to_list(AnalysisResult), ".*totals(.*)%%%",
+                                    [global, {capture, first, list}]),
+    [[TotalsResult]] = TotalsResults,
+    TotalsResult.
+get_total_calls_no_and_exec_time(TotalsResult)->
+    {ok,Tokens,_EndLocation} = erl_scan:string(TotalsResult),
+    {ok,[{totals,
+          FunctionCalls,ExecutionTime,_ExecutionTimeWithoutCalledFuns}]} = erl_parse:parse_term(Tokens),
+    [FunctionCalls,ExecutionTime].
 
 usage() ->
-    io:format("usage: ./fprof_escript MatrixForm TestSpec\n").
+    io:format("usage: ./fprof_escript MatrixForm TestSpec\n"
+              "examples:  ./fprof_escript matrix_as_array one_rows_sums").

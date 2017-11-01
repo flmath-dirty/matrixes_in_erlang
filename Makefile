@@ -4,6 +4,7 @@ export ERLC = erlc +debug_info
 clean	:
 	rm -rf ebin/*beam
 	rm -f fprof.trace
+	rm -f fprof.analysis
 compile	:
 	$(ERLC) -I include -o ebin src/*.erl
 
