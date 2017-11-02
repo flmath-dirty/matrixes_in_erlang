@@ -9,14 +9,37 @@
 -module(logs_processing).
 
 -export([get_statistics/0,
-         fprof_test_of_matrix_sums/4]).
+         fprof_test_of_matrix_sums/4,
+         fprof_test_of_matrix_function/4,
+         apply_transformations_to_matrix/4]).
 
 -define(BUFFER_FILE,"fprof.analysis").
 
 fprof_test_of_matrix_sums(MatrixForm, Function, Width, Height)->
     TestedMatrixRepresentation = create_matrix_representation(MatrixForm, Width, Height),
-    fprof:apply(MatrixForm, Function,[TestedMatrixRepresentation]),
+    fprof:apply(MatrixForm, Function, [TestedMatrixRepresentation]),
     get_statistics().
+
+fprof_test_of_matrix_function(MatrixForm, get_value, Width, Height)->
+    TestedMatrixRepresentation = create_matrix_representation(MatrixForm, Width, Height),
+    AllCoordinates = [[W,H] || W <- lists:seq(1,Width), H <- lists:seq(1,Height)],
+    io:format("No. of times function is applied: ~p~n",[length(AllCoordinates)]),
+    fprof:apply(logs_processing, apply_transformations_to_matrix,
+                [TestedMatrixRepresentation, MatrixForm, get_value, AllCoordinates]),
+    get_statistics();
+fprof_test_of_matrix_function(MatrixForm, set_value, Width, Height)->
+    TestedMatrixRepresentation = create_matrix_representation(MatrixForm, Width, Height),
+    AllCoordinates = [[W,H,rand:uniform(10000)] || W <- lists:seq(1,Width), H <- lists:seq(1,Height)],
+    io:format("No. of times function is applied: ~p~n",[length(AllCoordinates)]),
+    fprof:apply(logs_processing, apply_transformations_to_matrix,
+                [TestedMatrixRepresentation, MatrixForm, set_value, AllCoordinates]),
+    get_statistics().
+
+apply_transformations_to_matrix(Matrix, _, _, [])->
+    Matrix;
+apply_transformations_to_matrix(Matrix, Module, Function, [Attributes | RestOfAttributes]) ->
+    apply(Module, Function, lists:append(Attributes,[Matrix])),
+    apply_transformations_to_matrix(Matrix, Module, Function, RestOfAttributes).
 
 create_matrix_representation(MatrixForm, Width, Height)->
     io:format("~p~n",[MatrixForm]),

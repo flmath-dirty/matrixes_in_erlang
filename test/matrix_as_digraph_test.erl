@@ -76,7 +76,7 @@ cols_sums_list_of_lists_2_by_3_element_test()->
 get_element_test()->
     Input = matrix_as_digraph:load({3,4,{2,3,11,4,5,12,6,7,12,13,14,15}}),
     AssumedResult = 7,
-    ActualResult = matrix_as_digraph:get_value(2,3,Input),
+    ActualResult = apply(matrix_as_digraph,get_value,[2,3,Input]),
     ?assertEqual(AssumedResult, ActualResult).
 
 set_element_test()->
