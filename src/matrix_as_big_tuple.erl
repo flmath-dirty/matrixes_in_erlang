@@ -11,6 +11,9 @@
 -export([rows_sums/1, cols_sums/1,
          get_value/3,set_value/4]).
 
+load(Matrix)-> 
+    Matrix.
+    
 rows_sums({_Width,_Height,{}}) ->[];
 rows_sums({Width,Height,Matrix}) ->
     rows_sums({Width,Height,Matrix},0,[]).

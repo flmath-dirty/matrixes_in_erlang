@@ -3,10 +3,8 @@
 %%! -smp enable -sname fprof_escript -pa ebin -I include
 
 %% ref http://erlang.org/doc/man/fprof.html#analyse-0
--define(BUFFER_FILE,"fprof.analysis").
-
 main([MatrixForm, TestSpec]) ->
-    try
+    try        
         run(list_to_atom(MatrixForm), list_to_atom(TestSpec))
     catch
         Mod:Error ->
@@ -16,34 +14,34 @@ main([MatrixForm, TestSpec]) ->
 main(_) ->
     usage().
 
-run(MatrixForm , one_rows_sums)->
-    {Matrix,_ColsSums,_RowsSums}  =  generate_matrix:arithmetic_sum(99,99),
-    TestedMatrixRepresentation = matrix_as_array:load(Matrix),
-    fprof:apply(MatrixForm, rows_sums,[TestedMatrixRepresentation]),
-    get_statistics().  
 
-get_statistics()->
-    process_fprof_logs(),
-    TotalsResult = get_totals_line(),
-    [FunctionCalls,ExecutionTime] =  get_total_calls_no_and_exec_time(TotalsResult),
-    io:format("~p~n",[[FunctionCalls,ExecutionTime]]),
-    [FunctionCalls,ExecutionTime].
-
-process_fprof_logs()->
-    fprof:profile(),
-    fprof:analyse([{dest, ?BUFFER_FILE}]).
-get_totals_line()->
-    {ok,AnalysisResult} = file:read_file(?BUFFER_FILE),
-    {match, TotalsResults} = re:run(binary_to_list(AnalysisResult), ".*totals(.*)%%%",
-                                    [global, {capture, first, list}]),
-    [[TotalsResult]] = TotalsResults,
-    TotalsResult.
-get_total_calls_no_and_exec_time(TotalsResult)->
-    {ok,Tokens,_EndLocation} = erl_scan:string(TotalsResult),
-    {ok,[{totals,
-          FunctionCalls,ExecutionTime,_ExecutionTimeWithoutCalledFuns}]} = erl_parse:parse_term(Tokens),
-    [FunctionCalls,ExecutionTime].
+run(all, one_rows_sums) ->
+    FoldColsSumsFun = fprof_test_factory(rows_sums, 1000, 1000),
+    lists:foldl(FoldColsSumsFun,[],list_of_matrix_forms());
+run(all, one_cols_sums) ->
+    FoldColsSumsFun = fprof_test_factory(cols_sums, 1000, 1000),
+    lists:foldl(FoldColsSumsFun,[],list_of_matrix_forms());
+run(MatrixForm, one_rows_sums)->
+    logs_processing:fprof_test_of_matrix_sums(MatrixForm, rows_sums, 10000, 10000);  
+run(MatrixForm, one_cols_sums)->
+    logs_processing:fprof_test_of_matrix_sums(MatrixForm, cols_sums, 10000, 10000).
+fprof_test_factory(Function, Width, Height)->
+    fun(MatrixForm,Accumulator)->
+            [{atom_to_list(MatrixForm),
+              logs_processing:fprof_test_of_matrix_sums(
+                MatrixForm, Function, Width, Height)} | Accumulator]
+    end.
 
 usage() ->
     io:format("usage: ./fprof_escript MatrixForm TestSpec\n"
               "examples:  ./fprof_escript matrix_as_array one_rows_sums").
+
+
+
+list_of_matrix_forms()->
+    [matrix_as_digraph, 
+     matrix_as_array, 
+     matrix_as_map, 
+     matrix_as_big_tuple, 
+     matrix_as_list_of_lists, 
+     matrix_as_sofs].
