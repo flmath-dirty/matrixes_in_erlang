@@ -30,6 +30,18 @@ all get_value 50 50
 | matrix_as_big_tuple | 10013 | 25.176 |
 | matrix_as_list_of_lists | 137608 | 280.91 |
 
+all get_value 100 100
+
+| Matrix Form | No. of calls | Execution time |
+| :------------- |-------------:| -----:|
+| matrix_as_sofs | 200196018 | 528057.685 |
+| matrix_as_digraph | 60043 | 211.419 |
+| matrix_as_array | 90055 | 232.601 |
+| matrix_as_map | 50034 | 159.307 |
+| matrix_as_big_tuple | 40033 | 121.824 |
+| matrix_as_list_of_lists | 1050682 | 2073.251 |
+
+
 all set_value 50 50 
 
 | Matrix Form | No. of calls | Execution time |
@@ -40,6 +52,18 @@ all set_value 50 50
 | matrix_as_map | 10014 | 37.745 |
 | matrix_as_big_tuple | 12666 | 48.647 |
 | matrix_as_list_of_lists | 172626 | 381.566 |
+
+all set_value 100 100
+
+| Matrix Form | No. of calls | Execution time |
+| :------------- |-------------:| -----:|
+| matrix_as_sofs | 250349694 | 638382.468 |
+| matrix_as_digraph | 70044 | 210.263 |
+| matrix_as_array | 140109 | 446.399 |
+| matrix_as_map | 40045 | 124.737 |
+| matrix_as_big_tuple | 51254 | 268.102 |
+| matrix_as_list_of_lists | 1190697 | 2571.023 |
+
 
 all one_rows_sums 1000 1000
 

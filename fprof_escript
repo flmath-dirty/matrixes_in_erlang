@@ -59,7 +59,7 @@ usage()->
               "examples:  ./fprof_escript matrix_as_array one_rows_sums").
 
 list_of_matrix_forms()->
-    [matrix_as_sofs,
+    [%matrix_as_sofs,
      matrix_as_digraph, 
      matrix_as_array, 
      matrix_as_map, 
