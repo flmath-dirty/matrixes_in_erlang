@@ -49,10 +49,11 @@ all one_rows_sums 1000 1000
 |matrix_as_array  |  9260680  |  18894|
 |matrix_as_map  |  5262671 |   14060 | 
 |matrix_as_big_tuple | 2257139 |  4995|
-|matrix_as_list_of_lists | 1003508 |   1785|
-|matrix_as_sofs |  10940355 |  22408|
+|matrix_as_list_of_lists | 1003508 | 1785|
+|matrix_as_sofs | 10940355 | 22408|
 
 all one_rows_sums 1000 1000
+
 | Matrix Form | No. of calls | Execution time |
 | :------------- |-------------:| -----:|
 | matrix_as_digraph |  8013377 |  20194|
@@ -63,6 +64,7 @@ all one_rows_sums 1000 1000
 | matrix_as_sofs |   10940355 |  22478|
 
 all one_cols_sums 1000 1000
+
 | Matrix Form | No. of calls | Execution time |
 | :------------- |-------------:| -----:|
 | matrix_as_digraph |  8013377 |  21204| 
@@ -73,6 +75,7 @@ all one_cols_sums 1000 1000
 | matrix_as_sofs  |  3008521  |  6403| 
 
 all one_cols_sums 1000 1000
+
 | Matrix Form | No. of calls | Execution time |
 | :------------- |-------------:| -----:|
 |matrix_as_digraph | 8013377 |  21727|
