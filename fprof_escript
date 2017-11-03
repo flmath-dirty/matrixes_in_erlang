@@ -4,8 +4,16 @@
 
 %% ref http://erlang.org/doc/man/fprof.html#analyse-0
 main([MatrixForm, TestSpec]) ->
-    try        
-        run(list_to_atom(MatrixForm), list_to_atom(TestSpec))
+    try  
+        run_and_log(list_to_atom(MatrixForm), list_to_atom(TestSpec))
+    catch
+        Mod:Error ->
+            io:format("~p~n",[[Mod,Error]]),
+            usage()
+    end;
+main([MatrixForm, TestSpec, Width, Height]) ->
+    try  
+        run_and_log(list_to_atom(MatrixForm), list_to_atom(TestSpec), list_to_integer(Width), list_to_integer(Height))
     catch
         Mod:Error ->
             io:format("~p~n",[[Mod,Error]]),
@@ -14,44 +22,46 @@ main([MatrixForm, TestSpec]) ->
 main(_) ->
     usage().
 
-run(all, one_rows_sums) ->
-    FoldColsSumsFun = fprof_test_factory(rows_sums, 1000, 1000),
-    lists:foldl(FoldColsSumsFun,[],list_of_matrix_forms());
-run(all, one_cols_sums) ->
-    FoldColsSumsFun = fprof_test_factory(cols_sums, 1000, 1000),
-    lists:foldl(FoldColsSumsFun,[],list_of_matrix_forms());
-run(MatrixForm, one_rows_sums)->
-    logs_processing:fprof_test_of_matrix_sums(MatrixForm, rows_sums, 10000, 10000);  
-run(MatrixForm, one_cols_sums)->
-    logs_processing:fprof_test_of_matrix_sums(MatrixForm, cols_sums, 10000, 10000);
-run(all, Function)->
-    FoldColsSumsFun = fprof_test_function_factory(Function, 500, 100),
-    lists:foldl(FoldColsSumsFun,[],list_of_matrix_forms());
-run(MatrixForm, Function)->
-    logs_processing:fprof_test_of_matrix_function(MatrixForm, Function, 500, 100).
+run_and_log(MatrixForm, Function)->
+  run_and_log(MatrixForm, Function, 10, 10).
+run_and_log(MatrixForm, Function, Width, Height)-> 
+    print_table_header([MatrixForm, Function, Width, Height]),
+    run(MatrixForm, Function, Width, Height).
 
+run(all, one_rows_sums, Width, Height)->
+    FoldColsSumsFun = logs_processing:fprof_test_factory(rows_sums, Width, Height),
+    lists:foldl(FoldColsSumsFun,[],list_of_matrix_forms());
+run(all, one_cols_sums, Width, Height)->
+    FoldColsSumsFun = logs_processing:fprof_test_factory(cols_sums, Width, Height),
+    lists:foldl(FoldColsSumsFun,[],list_of_matrix_forms());
+run(MatrixForm, one_rows_sums, Width, Height)->
+    logs_processing:fprof_test_of_matrix_sums(MatrixForm, rows_sums, Width, Height);  
+run(MatrixForm, one_cols_sums, Width, Height)->
+    logs_processing:fprof_test_of_matrix_sums(MatrixForm, cols_sums, Width, Height);
+run(all, Function, Width, Height)->
+    FoldColsSumsFun = logs_processing:fprof_test_function_factory(Function, Width, Height),
+    lists:foldl(FoldColsSumsFun,[],list_of_matrix_forms());
+run(MatrixForm, Function, Width, Height)->
+    logs_processing:fprof_test_of_matrix_function(MatrixForm, Function, Width, Height).
 
-fprof_test_factory(Function, Width, Height)->
-    fun(MatrixForm,Accumulator)->
-            [{atom_to_list(MatrixForm),
-              logs_processing:fprof_test_of_matrix_sums(
-                MatrixForm, Function, Width, Height)} | Accumulator]
-    end.
-fprof_test_function_factory(Function, Width, Height)->
-    fun(MatrixForm,Accumulator)->
-            [{atom_to_list(MatrixForm),
-              logs_processing:fprof_test_of_matrix_function(
-                MatrixForm, Function, Width, Height)} | Accumulator]
-    end.
+print_table_header([_MatrixForm, _Function, Width, Height] = Command)->
+    io:format( 
+      ">>>fprof_escript ~p ~p ~p ~p ~n",
+      Command),
+    io:format( 
+      ">>> The table width: ~p; The table height: ~p ~n~n"
+      ">>> | Matrix Form | No. of calls | Execution time |~n"
+      ">>> | :------------- |-------------:| -----:|~n",
+      [Width, Height]).
 
-usage() ->
+usage()->
     io:format("usage: ./fprof_escript MatrixForm TestSpec\n"
               "examples:  ./fprof_escript matrix_as_array one_rows_sums").
 
 list_of_matrix_forms()->
-    [matrix_as_digraph, 
+    [matrix_as_sofs,
+     matrix_as_digraph, 
      matrix_as_array, 
      matrix_as_map, 
      matrix_as_big_tuple, 
-     matrix_as_list_of_lists, 
-     matrix_as_sofs].
+     matrix_as_list_of_lists].

@@ -5,6 +5,7 @@ clean	:
 	rm -rf ebin/*beam
 	rm -f fprof.trace
 	rm -f fprof.analysis
+	rm -f erl_crash.dump	
 compile	:
 	$(ERLC) -I include -o ebin src/*.erl
 
@@ -27,5 +28,4 @@ test	: compile_test eunit
 eunit    : compile_test
 	./test_escript
 
-fprof	: compile_test
-	./fprof_escript
+
