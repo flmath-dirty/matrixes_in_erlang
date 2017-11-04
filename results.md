@@ -30,18 +30,6 @@ all get_value 50 50
 | matrix_as_big_tuple | 10013 | 25.176 |
 | matrix_as_list_of_lists | 137608 | 280.91 |
 
-all get_value 100 100
-
-| Matrix Form | No. of calls | Execution time |
-| :------------- |-------------:| -----:|
-| matrix_as_sofs | 200196018 | 528057.685 |
-| matrix_as_digraph | 60043 | 211.419 |
-| matrix_as_array | 90055 | 232.601 |
-| matrix_as_map | 50034 | 159.307 |
-| matrix_as_big_tuple | 40033 | 121.824 |
-| matrix_as_list_of_lists | 1050682 | 2073.251 |
-
-
 all set_value 50 50 
 
 | Matrix Form | No. of calls | Execution time |
@@ -52,6 +40,37 @@ all set_value 50 50
 | matrix_as_map | 10014 | 37.745 |
 | matrix_as_big_tuple | 12666 | 48.647 |
 | matrix_as_list_of_lists | 172626 | 381.566 |
+
+all one_rows_sums 100 100
+
+| Matrix Form | No. of calls | Execution time |
+| :------------- |-------------:| -----:|
+| matrix_as_digraph | 81134 | 245.0 |
+| matrix_as_array | 73180 | 174.188 |
+| matrix_as_map | 53552 | 166.104 |
+| matrix_as_big_tuple | 23120 | 63.304 |
+| matrix_as_list_of_lists | 10311 | 25.758 |
+
+all one_cols_sums 100 100
+
+| Matrix Form | No. of calls | Execution time |
+| :------------- |-------------:| -----:|
+| matrix_as_digraph | 81134 | 256.944 |
+| matrix_as_array | 73180 | 176.126 |
+| matrix_as_map | 53552 | 150.2 |
+| matrix_as_big_tuple | 23120 | 59.589 |
+| matrix_as_list_of_lists | 31026 | 71.266 |
+
+all get_value 100 100
+
+| Matrix Form | No. of calls | Execution time |
+| :------------- |-------------:| -----:|
+| matrix_as_sofs | 200196018 | 528057.685 |
+| matrix_as_digraph | 60043 | 211.419 |
+| matrix_as_array | 90055 | 232.601 |
+| matrix_as_map | 50034 | 159.307 |
+| matrix_as_big_tuple | 40033 | 121.824 |
+| matrix_as_list_of_lists | 1050682 | 2073.251 |
 
 all set_value 100 100
 
@@ -109,3 +128,20 @@ all one_cols_sums 1000 1000
 |matrix_as_list_of_lists | 3011522 |  6298|
 |matrix_as_sofs |  3008521 |  6710|
 
+all set_value 1000 1000
+
+| Matrix Form | No. of calls | Execution time |
+| :------------- |-------------:| -----:|
+| matrix_as_digraph | 7003546 | 21433.734 |
+| matrix_as_array | 18009162 | 54947.103 |
+| matrix_as_map | 4002050 | 13486.349 |
+| matrix_as_big_tuple | 5622959 | 5492696.729 |
+
+all get_value 1000 1000
+
+| Matrix Form | No. of calls | Execution time |
+| :------------- |-------------:| -----:|
+| matrix_as_digraph | 6003059 | 19704.339 |
+| matrix_as_array | 11005536 | 28018.33 |
+| matrix_as_map | 5002517 | 15976.373 |
+| matrix_as_big_tuple | 4002015 | 12527.693 |
