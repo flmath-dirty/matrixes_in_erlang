@@ -22,7 +22,7 @@ one_rows_sums, 100, 100, matrix_as_big_tuple, 23120, 63.304
 one_rows_sums, 100, 100, matrix_as_list_of_lists, 10311, 25.758
 set_value, 50, 50, matrix_as_sofs, 15685383, 37529.846
 set_value, 50, 50, matrix_as_digraph, 17515, 48.35
-set_value, 50, 50, matrix_as_array, 35030, 103.894, 
+set_value, 50, 50, matrix_as_array, 35030, 103.894 
 set_value, 50, 50, matrix_as_map, 10014, 37.745
 set_value, 50, 50, matrix_as_big_tuple, 12666, 48.647
 set_value, 50, 50, matrix_as_list_of_lists, 172626, 381.566
