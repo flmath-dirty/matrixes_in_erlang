@@ -23,7 +23,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -41,7 +41,7 @@
      id="namedview44"
      showgrid="false"
      inkscape:zoom="1.337693"
-     inkscape:cx="419.17596"
+     inkscape:cx="277.51416"
      inkscape:cy="203.19283"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
@@ -144,7 +144,7 @@
        pointer-events="none"
        id="path32"
        inkscape:connector-curvature="0"
-       style="fill:none;stroke:#0a0500;stroke-width:0.94751424;stroke-miterlimit:10;stroke-dasharray:2.84254267, 2.84254266999999983;stroke-opacity:1" />
+       style="fill:none;stroke:#0a0500;stroke-width:0.94751424;stroke-miterlimit:10;stroke-dasharray:2.84254267, 2.84254267;stroke-opacity:1" />
     <path
        d="m 217,370 v 40"
        stroke-miterlimit="10"
@@ -186,17 +186,11 @@
        style="fill:none;stroke:#0a0500;stroke-miterlimit:10;stroke-opacity:1" />
     <path
        inkscape:connector-curvature="0"
-       style="fill:none;stroke:#0a0500;stroke-width:0.838;stroke-miterlimit:10;stroke-dasharray:none;marker-end:url(#Arrow1Lend);stroke-opacity:1"
+       style="fill:none;stroke:#0a0500;stroke-width:0.838;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
        d="M 8.4321107,490.75915 V 38.503407"
        stroke-miterlimit="10"
        pointer-events="none"
        id="path8-5" />
-    <path
-       style="stroke:#0a0500;stroke-width:0.74755567;stroke-opacity:1"
-       d="m 143.2845,429.32061 c 0,-1.43904 0.15384,-2.02774 0.34187,-1.30822 0.18803,0.71952 0.18803,1.89692 0,2.61645 -0.18803,0.71952 -0.34187,0.13082 -0.34187,-1.30823 z"
-       id="path4543"
-       inkscape:connector-curvature="0"
-       transform="matrix(1.0345108,0,0,1.0479705,-3.1650454,-10.690379)" />
     <path
        style="stroke:#0a0500;stroke-width:0.74755567;stroke-opacity:1"
        d=""
@@ -263,7 +257,7 @@
        style="font-size:14.19226933px;line-height:1.25">25hTo10k value increase</tspan></text>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#800080;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+     style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0.81000006px;word-spacing:0px;writing-mode:lr-tb;fill:#800080;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
      x="110.40258"
      y="410.18875"
      id="text4530-6-9"
@@ -272,7 +266,7 @@
        id="tspan4532-2-1"
        x="110.40258"
        y="410.18875"
-       style="font-size:14.19226933px;line-height:1.25;fill:#800080;">25hTo10k</tspan></text>
+       style="font-size:14.19226933px;line-height:1.25;letter-spacing:0.81000006px;fill:#800080">25hTo10k</tspan></text>
   <text
      xml:space="preserve"
      style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:#00ff00;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
@@ -334,21 +328,21 @@
   <text
      xml:space="preserve"
      style="font-style:normal;font-weight:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#008080;fill-opacity:1;stroke:none"
-     x="356.22052"
+     x="362.22052"
      y="172.54128"
      id="text4585"><tspan
        sodipodi:role="line"
        id="tspan4583"
-       x="356.22052"
+       x="362.22052"
        y="172.54128">An increase of the increase</tspan></text>
   <text
      xml:space="preserve"
      style="font-style:normal;font-weight:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff6600;fill-opacity:1;stroke:none"
      x="404.98837"
-     y="323.35272"
+     y="319.35272"
      id="text4585-6"><tspan
        sodipodi:role="line"
        id="tspan4583-6"
        x="404.98837"
-       y="323.35272">The projected increase</tspan></text>
+       y="319.35272">The projected increase</tspan></text>
 </svg>
